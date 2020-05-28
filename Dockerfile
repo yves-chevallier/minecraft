@@ -14,10 +14,12 @@ RUN adduser -Ss /bin/false -u 1000 -G minecraft -h ${HOMEDIR} minecraft
 # Get Forge
 RUN mkdir -p ${HOMEDIR}/server
 COPY minecraftinstance.json ${HOMEDIR}/server
-RUN cd ${HOMEDIR}/server && jq .baseModLoader.downloadUrl minecraftinstance.json | sed s/.jar/-installer.jar | xargs curl -SL -O
+RUN cd ${HOMEDIR}/server && jq .baseModLoader.downloadUrl minecraftinstance.json | sed s/.jar/-installer.jar/ | xargs curl -SL -O
 
 # Install server
-RUN cd ${HOMEDIR}/server && jq .baseModLoader.downloadUrl minecraftinstance.json | sed s/.jar/-installer.jar | xargs -I{} java -jar {} --installServer
+RUN cd ${HOMEDIR}/server && java -jar *-installer.jar --installServer
+RUN rm ${HOMEDIR}/server *-installer.*
+COPY eula.txt ${HOMEDIR}/server
 
 # Get mods
 RUN mkdir -p ${HOMEDIR}/server/mods
