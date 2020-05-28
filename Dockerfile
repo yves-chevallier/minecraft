@@ -18,7 +18,7 @@ RUN cd ${HOMEDIR}/server && jq .baseModLoader.downloadUrl minecraftinstance.json
 
 # Get mods
 RUN mkdir -p ${HOMEDIR}/server/mods
-RUN cd ${HOMEDIR}/server/mods && jq .installedAddons[].installedFile.downloadUrl ../minecraftinstance.json | xargs curl -SL -O
+RUN cd ${HOMEDIR}/server/mods && jq .installedAddons[].installedFile.downloadUrl ../minecraftinstance.json | xargs -n1 curl -SL -O
 
 # Update permissions
 RUN chown -r minecraft:minecraft ${HOMEDIR}
