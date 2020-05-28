@@ -5,13 +5,14 @@ ENV HOMEDIR /home/minecraft
 LABEL maintainer "nowox"
 
 # Required packages
-RUN apk add --no-cache -U git vi bash curl sudo
+RUN apk add --no-cache -U git vim bash curl sudo
 
 # User minecraft
 RUN addgroup -g 1000 minecraft
 RUN adduser -Ss /bin/false -u 1000 -G minecraft -h ${HOMEDIR} minecraft
 
 # Get Forge
+RUN mkdir -p ${HOMEDIR}/server
 RUN cd ${HOMEDIR}/server && jq .baseModLoader.downloadUrl ../minecraftinstance.json | xargs curl -sOSL
 
 # Get mods
