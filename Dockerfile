@@ -20,14 +20,14 @@ RUN cd server && jq .baseModLoader.downloadUrl minecraftinstance.json | sed s/.j
 # Install server
 RUN cd server && java -jar *-installer.jar --installServer
 RUN rm server/*-installer.*
-COPY server/eula.txt server
-COPY server/server.properties server
 
 # Get mods
 RUN mkdir -p server/mods
 RUN cd server/mods && jq .installedAddons[].installedFile.downloadUrl ../minecraftinstance.json | xargs -n1 curl -SL -O
 
 # Copy server config
+COPY server/eula.txt server
+COPY server/server.properties server
 COPY server/config server/config
 
 # Update permissions
