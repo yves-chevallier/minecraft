@@ -26,7 +26,7 @@ RUN mkdir -p server/mods
 RUN cd server/mods && jq .installedAddons[].installedFile.downloadUrl ../minecraftinstance.json | xargs -n1 curl -SL -O
 
 # Remove non-mod
-COPY server/non-mod server
+COPY non-mod .
 RUN cat non-mod | xargs -n1 -I{} rm {}*.{jar,zip}
 
 # Copy server config
