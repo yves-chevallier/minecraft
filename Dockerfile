@@ -5,7 +5,7 @@ ENV HOMEDIR /home/minecraft
 LABEL maintainer "nowox"
 
 # Required packages
-RUN apk add --no-cache -U git vim bash curl sudo
+RUN apk add --no-cache -U git jq vim bash curl sudo
 
 # User minecraft
 RUN addgroup -g 1000 minecraft
