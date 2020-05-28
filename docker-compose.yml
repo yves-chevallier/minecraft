@@ -7,7 +7,9 @@ services:
     ports:
       - "25565:25565"
     volumes:
-      - "server/world:/home/minecraft/server/world"
+      - type: bind
+        source: "server/world"
+        target: "/home/minecraft/server/world"
     environment:
       RCON_PASSWORD: "creeper"
     restart: always
