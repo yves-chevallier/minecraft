@@ -27,7 +27,7 @@ RUN cd server/mods && jq .installedAddons[].installedFile.downloadUrl ../minecra
 
 # Remove non-mod
 COPY non-mod .
-RUN cat non-mod | xargs -n1 -I{} bash -c 'rm server/mods/{}'
+RUN cat non-mod | xargs -n1 -I{} bash -c 'rm -vf server/mods/{}'
 
 # Copy server config
 COPY server/eula.txt server
