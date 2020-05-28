@@ -14,7 +14,10 @@ RUN adduser -Ss /bin/false -u 1000 -G minecraft -h ${HOMEDIR} minecraft
 # Get Forge
 RUN mkdir -p ${HOMEDIR}/server
 COPY minecraftinstance.json ${HOMEDIR}/server
-RUN cd ${HOMEDIR}/server && jq .baseModLoader.downloadUrl minecraftinstance.json | xargs curl -SL -O
+RUN cd ${HOMEDIR}/server && jq .baseModLoader.downloadUrl minecraftinstance.json | sed s/.jar/-installer.jar | xargs curl -SL -O
+
+# Install server
+RUN cd ${HOMEDIR}/server && jq .baseModLoader.downloadUrl minecraftinstance.json | sed s/.jar/-installer.jar | xargs -I{} java -jar {} --installServer
 
 # Get mods
 RUN mkdir -p ${HOMEDIR}/server/mods
@@ -25,4 +28,4 @@ RUN chown -R minecraft:minecraft ${HOMEDIR}
 
 EXPOSE 25565 25575
 
-ENTRYPOINT [ "/start" ]
+#ENTRYPOINT [ "/start" ]
