@@ -1,6 +1,4 @@
-version: '3'
-# Other docker-compose examples in /examples
-
+version: "3.2"
 services:
   minecraft:
     build: .
@@ -8,8 +6,8 @@ services:
       - "25565:25565"
     volumes:
       - type: bind
-        source: "server/world"
-        target: "/home/minecraft/server/world"
+        source: server/world
+        target: /home/minecraft/server/world
     environment:
       RCON_PASSWORD: "creeper"
     restart: always
