@@ -14,11 +14,11 @@ RUN adduser -Ss /bin/false -u 1000 -G minecraft -h ${HOMEDIR} minecraft
 # Get Forge
 RUN mkdir -p ${HOMEDIR}/server
 COPY minecraftinstance.json ${HOMEDIR}/server
-RUN cd ${HOMEDIR}/server && jq .baseModLoader.downloadUrl minecraftinstance.json | xargs curl -sOSL
+RUN cd ${HOMEDIR}/server && jq .baseModLoader.downloadUrl minecraftinstance.json | xargs curl -SL -O
 
 # Get mods
 RUN mkdir -p ${HOMEDIR}/server/mods
-RUN cd ${HOMEDIR}/server/mods && jq .installedAddons[].installedFile.downloadUrl ../minecraftinstance.json | xargs curl -sOSL
+RUN cd ${HOMEDIR}/server/mods && jq .installedAddons[].installedFile.downloadUrl ../minecraftinstance.json | xargs curl -SL -O
 
 # Update permissions
 RUN chown -r minecraft:minecraft ${HOMEDIR}
