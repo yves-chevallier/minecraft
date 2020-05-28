@@ -21,7 +21,7 @@ RUN mkdir -p ${HOMEDIR}/server/mods
 RUN cd ${HOMEDIR}/server/mods && jq .installedAddons[].installedFile.downloadUrl ../minecraftinstance.json | xargs -n1 curl -SL -O
 
 # Update permissions
-RUN chown -r minecraft:minecraft ${HOMEDIR}
+RUN chown -R minecraft:minecraft ${HOMEDIR}
 
 EXPOSE 25565 25575
 
