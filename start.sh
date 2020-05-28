@@ -1,7 +1,7 @@
 #!/bin/bash
 cd "$(dirname "$0")"
 
-HEAP_SIZE=4096
+HEAP_SIZE=8096
 JAR_NAME=/home/minecraft/server/forge-*.jar
 
 # Set env
