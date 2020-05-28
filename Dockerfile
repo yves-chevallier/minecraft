@@ -1,4 +1,4 @@
-FROM adoptopenjdk/openjdk9-openj9:alpine
+FROM openjdk:8u212-jre-alpine
 
 WORKDIR /home/minecraft
 ENV HOMEDIR /home/minecraft
@@ -36,4 +36,6 @@ RUN chown -R minecraft:minecraft ${HOMEDIR}
 EXPOSE 25565 25575
 
 COPY start.sh server/
+RUN chmod +x server/start.sh
+
 ENTRYPOINT [ "server/start.sh" ]
