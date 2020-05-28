@@ -26,6 +26,11 @@ COPY server/server.properties ${HOMEDIR}/server
 RUN mkdir -p ${HOMEDIR}/server/mods
 RUN cd ${HOMEDIR}/server/mods && jq .installedAddons[].installedFile.downloadUrl ../minecraftinstance.json | xargs -n1 curl -SL -O
 
+# Copy configuration
+WORKDIR /home/minecraft
+
+COPY server/config server/config
+
 # Update permissions
 RUN chown -R minecraft:minecraft ${HOMEDIR}
 
