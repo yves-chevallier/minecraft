@@ -19,7 +19,8 @@ RUN cd ${HOMEDIR}/server && jq .baseModLoader.downloadUrl minecraftinstance.json
 # Install server
 RUN cd ${HOMEDIR}/server && java -jar *-installer.jar --installServer
 RUN rm ${HOMEDIR}/server/*-installer.*
-COPY eula.txt ${HOMEDIR}/server
+COPY server/eula.txt ${HOMEDIR}/server
+COPY server/server.properties ${HOMEDIR}/server
 
 # Get mods
 RUN mkdir -p ${HOMEDIR}/server/mods
