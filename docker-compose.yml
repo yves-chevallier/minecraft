@@ -3,7 +3,8 @@ services:
   minecraft:
     build: .
     ports:
-      - "25565:25565"
+      - "25565:25565" # Minecraft
+      - "25575:25575" # RCON
     volumes:
       - /opt/minecraft/server/world:/home/minecraft/server/world
     environment:
