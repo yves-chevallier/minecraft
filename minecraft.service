@@ -1,0 +1,20 @@
+[Unit]
+Description=minecraft service with docker compose
+Requires=docker.service
+After=docker.service
+StartLimitInterval=200
+StartLimitBurst=5
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=30
+
+WorkingDirectory=/opt/minecraft
+
+ExecStartPre=docker-compose build 
+ExecStart=docker-compose up --remove-orphans
+ExecStop=docker-compose down
+
+[Install]
+WantedBy=multi-user.target
