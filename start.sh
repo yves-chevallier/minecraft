@@ -8,6 +8,8 @@ export MCRCON_HOST=127.0.0.1
 export MCRCON_PORT=25575
 export MCRCON_PASS=${RCON_PASSWORD}
 
+jq ".discord.token = \"${DISCORD_TOKEN}\"" server/config/Chikachi/discordintegration.json | sponge server/config/Chikachi/discordintegration.json
+
 # Run backup
 /usr/sbin/crond
 

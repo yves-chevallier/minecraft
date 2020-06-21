@@ -38,7 +38,7 @@ COPY server/config server/config
 RUN chown -R minecraft:minecraft ${HOMEDIR}
 
 # Mcrcon
-RUN apk add --no-cache -U make gcc libc-dev
+RUN apk add --no-cache -U make gcc libc-dev moreutils
 RUN git clone https://github.com/Tiiffi/mcrcon.git
 RUN cd mcrcon && make && make install && rm -rf mcrcon
 

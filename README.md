@@ -5,12 +5,16 @@
     mkdir -p /opt
     git clone https://github.com/yves-chevallier/minecraft.git /opt/minecraft
     cp /opt/minecraft/.env.example /opt/minecraft/.env
-    
+
 ## Install service
 
     ln -s /opt/minecraft/minecraft.service /etc/systemd/system/
     systemctl daemon-reload
     systemctl enable minecraft
+
+## Start server
+
+    systemctl start minecraft
 
 ## Configure Firewall
 
