@@ -25,6 +25,9 @@ RUN rm server/*-installer.*
 RUN mkdir -p server/mods
 RUN cd server/mods && jq .installedAddons[].installedFile.downloadUrl ../minecraftinstance.json | xargs -n1 curl -SL -O
 
+# Get server-only mods
+RUN cd server/mods && curl -SL -O https://media.forgecdn.net/files/2542/101/DiscordIntegration-mc1.12.2-3.0.5.jar
+
 # Remove non-mod
 COPY non-mod .
 RUN cat non-mod | xargs -n1 -I{} bash -c 'rm -vf server/mods/{}'
