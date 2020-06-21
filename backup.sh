@@ -1,15 +1,13 @@
 #!/bin/bash
 DAYS_RETENTION=7
-HOME=${HOME}
+HOME=/home/minecraft
 
-function rcon {
-  ${HOME}/tools/mcrcon/mcrcon -H 127.0.0.1 -P 25575 -p ${RCON_PASSWORD} "$1"
-}
-
-rcon "save-off"
-rcon "save-all"
+mcrcon "say Saves are disabled" save-off
+mcrcon "say Starting daily backup" save-all
+sleep 3
 tar -cvpzf ${HOME}/backups/server-$(date +%F-%H-%M).tar.gz ${HOME}/server
-rcon "save-on"
+sleep 1
+mcrcon -w 5 "say Saves are now enabled" save-on
 
 ## Delete older backups
 find ${HOME}/backups/ -type f -mtime +${DAYS_RETENTION} -name '*.gz' -delete

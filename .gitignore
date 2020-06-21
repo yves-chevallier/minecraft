@@ -1,2 +1,5 @@
 server/mods/*.jar
 server/world
+backups/*.tar.gz
+backups/*.log
+.env

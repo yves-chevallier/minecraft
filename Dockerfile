@@ -30,16 +30,29 @@ COPY non-mod .
 RUN cat non-mod | xargs -n1 -I{} bash -c 'rm -vf server/mods/{}'
 
 # Copy server config
-COPY server/eula.txt server
-COPY server/server.properties server
+COPY server/eula.txt server/eula.txt
+COPY server/server.properties server/server.properties
 COPY server/config server/config
 
 # Update permissions
 RUN chown -R minecraft:minecraft ${HOMEDIR}
 
+# Mcrcon
+RUN apk add --no-cache -U make gcc libc-dev
+RUN git clone https://github.com/Tiiffi/mcrcon.git
+RUN cd mcrcon && make && make install && rm -rf mcrcon
+
+# Backup
+ADD crontab.txt crontab.txt
+ADD backup.sh backup.sh
+RUN /usr/bin/crontab ./crontab.txt
+
+# Ports
 EXPOSE 25565 25575
 
-COPY start.sh server/
+# Entrypoint
+ADD start.sh server/
 RUN chmod +x server/start.sh
+RUN chmod +x backup.sh
 
 ENTRYPOINT [ "server/start.sh" ]

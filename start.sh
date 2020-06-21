@@ -1,13 +1,17 @@
 #!/bin/bash
 cd "$(dirname "$0")"
+HOME=/home/minecraft
 
-HEAP_SIZE=8096
-JAR_NAME=/home/minecraft/server/forge-*.jar
+# Settings from environment
+sed -iE s/\(rcon.password\).*$/\\1=${RCON_PASSWORD}/ ${HOME}/server/server.properties
+export MCRCON_HOST=127.0.0.1
+export MCRCON_PORT=25575
+export MCRCON_PASS=${RCON_PASSWORD}
 
-# Set env
-sed -i s/rcon.password=\.*/rcon.password=${RCON_PASSWORD:=creeper}/ server.properties
+# Run backup
+/usr/sbin/crond
 
-# Launch the server.
+# Run Minecraft Server
+JAR_NAME=${HOME}//server/forge-*.jar
 CMD="java -Xms${HEAP_SIZE}M -Xmx${HEAP_SIZE}M -jar ${JAR_NAME}"
-echo "launching server with command line: ${CMD}"
 ${CMD}
