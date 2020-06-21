@@ -36,7 +36,7 @@
         "chatPrefix": "",
         "canMentionUsers": true,
         "canMentionRoles": true,
-        "discordChannel": [709733730000044043],
+        "discordChannel": ["709733730000044043"],
         "relayAchievements": true,
         "relayChat": true,
         "relayCommands": true,
